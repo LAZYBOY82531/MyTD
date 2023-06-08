@@ -7,6 +7,8 @@ public class UIManager : MonoBehaviour
 {
     private static EventSystem eventSystem;
     private Canvas popUpCanvas;
+    private Canvas windowCanvas;
+    private Canvas inGameCanvas;
     private Stack<PopUpUI> popUpStack;
 
     private void Awake()
@@ -18,6 +20,15 @@ public class UIManager : MonoBehaviour
         popUpCanvas.gameObject.name = "PopUpCanvas";
         popUpCanvas.sortingOrder = 100;
         popUpStack = new Stack<PopUpUI>();
+
+        windowCanvas = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
+        windowCanvas.gameObject.name = "WindowCanvas";
+        windowCanvas.sortingOrder = 50;
+
+        //gameSceneCanvas.sortingOrder = 1;
+        inGameCanvas = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
+        inGameCanvas.gameObject.name = "InGameCanvas";
+        inGameCanvas.sortingOrder = 0;
     }
 
     public T OpenPopUpUI<T>(T popUpUI) where T : PopUpUI
@@ -58,5 +69,46 @@ public class UIManager : MonoBehaviour
         {
             Time.timeScale = 1f;
         }
+    }
+
+    public void OpenWindowUI(WindowUI windowUI)
+    {
+        WindowUI ui = GameManager.Pool.GetUI(windowUI);
+        ui.transform.SetParent(windowCanvas.transform, false);
+    }
+
+    public void OpenWindowUI(string path)
+    {
+        WindowUI ui = GameManager.Resource.Load<WindowUI>(path);
+        OpenWindowUI(ui);
+    }
+
+    public void CloseWindowUI(WindowUI windowUI)
+    {
+        GameManager.Pool.ReleaseUI(windowUI.gameObject);
+    }
+
+    public void SelectWindowUI(WindowUI windowUI)
+    {
+        windowUI.transform.SetAsLastSibling();
+    }
+
+    public T ShowInGameUI<T>(T ingameui) where T : InGameUI
+    {
+        T ui = GameManager.Pool.GetUI(ingameui);
+        ui.transform.SetParent(inGameCanvas.transform.transform, false);
+
+        return ui;
+    }
+
+    public T ShowInGameUI<T>(string path) where T : InGameUI
+    {
+        T ui = GameManager.Resource.Load<T>(path);
+        return ShowInGameUI(ui);
+    }
+
+    public void CloseInGameUI<T>(T inGameUI) where T : InGameUI
+    {
+        GameManager.Pool.ReleaseUI(inGameUI.gameObject);
     }
 }
