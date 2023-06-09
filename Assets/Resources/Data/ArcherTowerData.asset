@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towers:
   - tower: {fileID: -7425683563072944661, guid: b2e7530b828b98f4ba6fb2f1c0cdfd07, type: 3}
-    Damage: 1
-    dilay: 1
-    Range: 20
+    damage: 1
+    delay: 1
+    range: 30
     buildTime: 3
     buildCost: 10
     sellCost: 5
