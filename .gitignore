@@ -72,3 +72,10 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 /Assets/Imports
 /Assets/Prefab
+/Assets/Resources/Prefab/Enemy.prefab
+/Assets/Resources/Tower/CanonTower_Lvl1.prefab
+/Assets/Resources/Tower/CanonBall.prefab.meta
+/Assets/Resources/Tower/CanonBall.prefab
+/Assets/Resources/Tower/Arrow.prefab.meta
+/Assets/Resources/Tower/Arrow.prefab
+/Assets/Resources/Tower/ArcherTower_Lvl1.prefab
